@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Town Nail &amp; Spa — Demo</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="public/images/favicon-32.png" sizes="32x32" />
+<link rel="icon" href="public/images/favicon-512.png" sizes="512x512" />
+<link rel="apple-touch-icon" href="public/images/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #101c2c;
+    --panel: #16283f;
+    --panel-2: #1c3350;
+    --cream: #faf6ee;
+    --cream-2: #f2e9d8;
+    --blue: #2e62a6;
+    --blue-light: #6b9bd6;
+    --blue-deep: #1f3856;
+    --terracotta: #a06a54;
+    --ink: #22201a;
+    --ink-soft: #5c5748;
+    --text-on-dark: #f2eee2;
+    --muted-on-dark: #aebccb;
+    --border-dark: rgba(107,155,214,0.20);
+    --border-light: rgba(34,32,26,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text-on-dark);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3, .display { font-family: 'Playfair Display', Georgia, serif; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(15,25,38,0.95);
+    backdrop-filter: blur(17px) saturate(115%);
+    -webkit-backdrop-filter: blur(17px) saturate(115%);
+    border-bottom: 1px solid var(--border-dark);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand .mark {
+    width: 44px; height: 44px; border-radius: 13px; overflow: hidden;
+    border: 1.5px solid var(--blue-light);
+    flex-shrink: 0;
+  }
+  .brand .mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .brand .name { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 16.5px; color: var(--text-on-dark); letter-spacing: 0.01em; }
+  .brand .name small { display: block; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue-light); margin-top: 2px; }
+  .nav-links { display: flex; gap: 30px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .nav-links a { color: rgba(242,238,226,0.72); transition: color .15s ease; }
+  .nav-links a:hover { color: var(--blue-light); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue) 60%, var(--blue-deep) 100%);
+    color: #fff;
+    font-weight: 700; font-size: 13.5px;
+    padding: 13px 26px; border-radius: 999px;
+    border: none; cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(46,98,166,0.4); }
+  .btn-sm { padding: 10px 20px; font-size: 12.5px; }
+  .btn-outline {
+    background: rgba(242,238,226,0.06); color: var(--text-on-dark);
+    border: 1.5px solid rgba(242,238,226,0.35);
+  }
+  .btn-outline:hover { border-color: var(--blue-light); color: var(--blue-light); box-shadow: none; }
+  .btn-outline-dark {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid rgba(34,32,26,0.28);
+  }
+  .btn-outline-dark:hover { border-color: var(--blue); color: var(--blue-deep); box-shadow: none; }
+
+  header.hero {
+    position: relative;
+    padding: 172px 0 110px;
+    overflow: hidden;
+    background: var(--cream-2);
+  }
+  header.hero .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('public/images/hero-cover.jpg');
+    background-size: cover; background-position: center 42%;
+    filter: saturate(1.03);
+  }
+  header.hero .hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(16,26,40,0.14) 0%, rgba(15,25,38,0.58) 32%, rgba(12,20,32,0.87) 68%, rgba(10,18,30,0.93) 100%);
+  }
+  header.hero .hero-top-band {
+    position: absolute; top: 0; left: 0; right: 0; height: 230px; z-index: 2;
+    background: linear-gradient(180deg, var(--cream-2) 0px, var(--cream-2) 100px, rgba(242,233,216,0) 230px);
+  }
+  header.hero .wrap { position: relative; z-index: 3; max-width: 780px; text-align: center; margin: 0 auto; padding-top: 34px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue-light); background: rgba(15,25,38,0.55); border: 1px solid var(--border-dark);
+    padding: 8px 18px; border-radius: 999px; margin-bottom: 26px;
+  }
+  h1.hero-h1 { font-size: 50px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.01em; }
+  header.hero p.sub { font-size: 17px; color: rgba(242,238,226,0.88); max-width: 580px; margin: 0 auto 24px; line-height: 1.8; }
+  .hero-rec { display: inline-flex; align-items: center; gap: 10px; color: var(--blue-light); font-size: 14px; font-weight: 700; margin-bottom: 34px; background: rgba(46,98,166,0.14); border: 1px solid var(--border-dark); padding: 9px 20px; border-radius: 999px; }
+  .hero-rec .muted-num { color: rgba(242,238,226,0.7); font-weight: 500; font-family: 'Inter', sans-serif; }
+  .cta-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+  .trust-strip { padding: 30px 0; background: var(--panel); border-bottom: 1px solid var(--border-dark); }
+  .trust-grid { display: flex; justify-content: center; gap: 46px; flex-wrap: wrap; text-align: center; }
+  .trust-item { font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; color: var(--muted-on-dark); display: flex; align-items: center; gap: 9px; }
+  .trust-item .ic { color: var(--blue-light); font-size: 15px; }
+
+  section { padding: 92px 0; }
+  section.cream { background: var(--cream); color: var(--ink); }
+  section.cream .section-head p, section.cream p { color: var(--ink-soft); }
+
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto 54px; }
+  .section-head .kicker { color: var(--blue-light); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; display: block; }
+  section.cream .section-head .kicker { color: var(--blue-deep); }
+  .section-head h2 { font-size: 34px; font-weight: 700; margin-bottom: 16px; color: var(--text-on-dark); letter-spacing: -0.01em; }
+  section.cream .section-head h2 { color: var(--ink); }
+  .section-head p { color: var(--muted-on-dark); font-size: 15.5px; line-height: 1.75; }
+
+  /* Services */
+  .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .svc-card {
+    background: #fff; border: 1px solid var(--border-light); border-radius: 16px;
+    padding: 26px 28px; display: flex; flex-direction: column; gap: 10px;
+    box-shadow: 0 10px 30px rgba(34,32,26,0.06);
+  }
+  .svc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+  .svc-name { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 17.5px; color: var(--ink); }
+  .svc-tag { font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--blue-deep); background: rgba(46,98,166,0.10); padding: 5px 11px; border-radius: 999px; white-space: nowrap; }
+  .svc-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .svc-note { text-align: center; margin-top: 34px; font-size: 13.5px; color: var(--ink-soft); }
+  .svc-note a { color: var(--blue-deep); font-weight: 700; text-decoration: underline; }
+
+  /* Story / about */
+  .about-grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 56px; align-items: center; }
+  .about-photo { position: relative; text-align: center; }
+  .about-photo img { width: 100%; border-radius: 18px; border: 1px solid var(--border-dark); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .about-photo .cap { margin-top: 18px; font-weight: 700; font-size: 14px; color: var(--text-on-dark); }
+  .about-photo .role { font-size: 11px; color: var(--blue-light); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+  .about-text p { color: var(--muted-on-dark); font-size: 15.5px; line-height: 1.9; margin-bottom: 16px; }
+  .about-text strong { color: var(--text-on-dark); }
+  .about-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  .about-badges span {
+    background: rgba(46,98,166,0.12); border: 1px solid var(--border-dark); color: var(--blue-light);
+    font-size: 11.5px; font-weight: 700; padding: 8px 15px; border-radius: 999px; letter-spacing: 0.02em;
+  }
+
+  /* Social proof */
+  .proof-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 20px; }
+  .stat-card { background: #fff; border: 1px solid var(--border-light); border-radius: 16px; padding: 30px 28px; box-shadow: 0 10px 30px rgba(34,32,26,0.06); display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+  .stat-card .big { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 46px; color: var(--blue-deep); line-height: 1; }
+  .stat-card .label { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; }
+  .stat-card .sub { font-size: 12px; color: var(--ink-soft); opacity: 0.8; margin-top: 6px; }
+  .post-card { background: #fff; border: 1px solid var(--border-light); border-radius: 16px; padding: 26px 28px; box-shadow: 0 10px 30px rgba(34,32,26,0.06); }
+  .post-card .post-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .post-head .pmark { width: 34px; height: 34px; border-radius: 9px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border-light); }
+  .post-head .pmark img { width: 100%; height: 100%; object-fit: cover; }
+  .post-head .pname { font-weight: 700; font-size: 13.5px; color: var(--ink); }
+  .post-head .pdate { font-size: 11.5px; color: var(--ink-soft); }
+  .post-card p.body { color: var(--ink); font-size: 14.5px; line-height: 1.8; margin-bottom: 14px; }
+  .post-reacts { font-size: 12px; color: var(--ink-soft); display: flex; align-items: center; gap: 6px; }
+
+  /* Weakness / pitch band */
+  .pitch-band { background: linear-gradient(165deg, #1a2c44 0%, #0f1a29 100%); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); }
+  .pitch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .pitch-grid h2 { font-size: 30px; margin-bottom: 18px; }
+  .pitch-grid p { color: var(--muted-on-dark); font-size: 15px; line-height: 1.85; margin-bottom: 16px; }
+  .pitch-list { list-style: none; margin-top: 22px; }
+  .pitch-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; color: var(--text-on-dark); margin-bottom: 16px; line-height: 1.6; }
+  .pitch-list li .x { color: #e0645a; font-weight: 800; }
+  .pitch-list li .check { color: var(--blue-light); font-weight: 800; }
+  .pitch-card { background: var(--panel-2); border: 1px solid var(--border-dark); border-radius: 20px; padding: 32px; }
+  .pitch-card h3 { font-size: 15px; color: var(--blue-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+
+  /* Hours + location */
+  .hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .info-card { background: #fff; border: 1px solid var(--border-light); border-radius: 18px; padding: 32px; box-shadow: 0 10px 26px rgba(34,32,26,0.06); }
+  .info-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 18px; color: var(--blue-deep); text-transform: uppercase; letter-spacing: 0.08em; }
+  .hours-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border-light); font-size: 14.5px; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row .day { font-weight: 600; color: var(--ink); }
+  .hours-row .time { color: var(--ink-soft); }
+  .info-card .addr-line { font-size: 15px; color: var(--ink); line-height: 1.8; margin-bottom: 18px; }
+  .info-card .addr-line a { color: var(--blue-deep); font-weight: 700; text-decoration: underline; }
+
+  .final-cta { text-align: center; background: linear-gradient(165deg, #1a2c44 0%, #0f1a29 100%); }
+  .final-cta h2 { font-size: 32px; margin-bottom: 14px; }
+  .final-cta p { color: var(--muted-on-dark); font-size: 15.5px; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+  footer { padding: 50px 0 36px; background: #0f1a29; border-top: 1px solid var(--border-dark); }
+  footer .wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  footer .foot-mark { width: 46px; height: 46px; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--blue-light); margin-bottom: 16px; }
+  footer .foot-mark img { width: 100%; height: 100%; object-fit: cover; }
+  footer .biz-name { color: var(--text-on-dark); font-weight: 700; font-size: 15px; margin-bottom: 4px; font-family: 'Playfair Display', serif; }
+  footer p { color: rgba(242,238,226,0.5); font-size: 13px; }
+  footer a.solv { color: var(--blue-light); font-weight: 700; text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .about-grid, .pitch-grid, .hl-grid, .proof-grid { grid-template-columns: 1fr; }
+    .svc-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    h1.hero-h1 { font-size: 32px; }
+    header.hero { padding: 140px 0 40px; }
+    header.hero .wrap { padding-top: 10px; }
+    header.hero p.sub { margin-bottom: 16px; }
+    .hero-rec { margin-bottom: 20px; }
+    .section-head h2 { font-size: 26px; }
+    .pitch-grid h2 { font-size: 25px; }
+  }
+
+  @media (max-width: 480px) {
+    .cta-row { flex-direction: column; align-items: stretch; }
+    .cta-row .btn { width: 100%; justify-content: center; }
+  }
+
+  #chat-launcher {
+    position: fixed; bottom: 24px; right: 24px; z-index: 60;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue) 60%, var(--blue-deep) 100%);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 10px 28px rgba(46,98,166,0.45);
+    transition: transform .15s ease;
+  }
+  #chat-launcher:hover { transform: scale(1.06); }
+  #chat-launcher svg { width: 26px; height: 26px; color: #fff; }
+  #chat-panel {
+    position: fixed; bottom: 96px; right: 24px; z-index: 60;
+    width: 356px; max-width: calc(100vw - 32px); height: 462px; max-height: calc(100vh - 140px);
+    background: rgba(22,40,63,0.97);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border-dark); border-radius: 20px;
+    display: none; flex-direction: column; overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+  }
+  #chat-panel.open { display: flex; }
+  #chat-panel .chat-head {
+    padding: 16px 18px; border-bottom: 1px solid var(--border-dark);
+    display: flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #1f3856 0%, #0f1a29 100%); color: var(--text-on-dark);
+  }
+  #chat-panel .chat-head .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,0.2); }
+  #chat-panel .chat-head span { font-weight: 700; font-size: 14px; flex: 1; }
+  #chat-close { background: none; border: none; color: rgba(242,238,226,0.7); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; }
+  #chat-close:hover { color: var(--blue-light); }
+  #chat-body { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+  .bubble { max-width: 88%; padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.55; }
+  .bubble.bot { background: var(--panel-2); color: var(--text-on-dark); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .bubble.user { background: var(--blue); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 600; }
+  .bubble a { color: var(--blue-light); text-decoration: underline; font-weight: 600; }
+  #chat-form { display: flex; gap: 8px; padding: 14px; border-top: 1px solid var(--border-dark); background: rgba(15,25,38,0.5); }
+  #chat-input { flex: 1; background: var(--panel); border: 1px solid var(--border-dark); border-radius: 10px; padding: 10px 12px; color: var(--text-on-dark); font-size: 13.5px; font-family: inherit; }
+  #chat-input::placeholder { color: rgba(242,238,226,0.4); }
+  #chat-input:focus { outline: none; border-color: var(--blue); }
+  #chat-send { background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue) 100%); color: #fff; border: none; border-radius: 10px; width: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark"><img src="public/images/brand-mark.png" alt="Town Nail & Spa logo" /></div>
+      <div class="name">Town Nail &amp; Spa<small>Shelton, Connecticut</small></div>
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Visit</a>
+    </div>
+    <a href="#contact" class="btn btn-sm">Book Now</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-top-band"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="wrap">
+    <div class="eyebrow">📍 709 Bridgeport Ave &middot; Shelton, CT</div>
+    <h1 class="hero-h1">Shelton's neighborhood nail &amp; spa, going on 20 years strong.</h1>
+    <p class="sub">Town Nail &amp; Spa has been a fixture on Bridgeport Avenue since 2006 — manicures, pedicures, nail extensions, and spa treatments in a full, comfortable salon, minutes from anywhere in Shelton.</p>
+    <div class="hero-rec">👍 84% recommend <span class="muted-num">&middot; 35 reviews on Facebook</span></div>
+    <div class="cta-row">
+      <a href="#contact" class="btn">Book Now</a>
+      <a href="tel:+12039266090" class="btn btn-outline">Call (203) 926-6090</a>
+    </div>
+  </div>
+</header>
+
+<div class="trust-strip">
+  <div class="wrap trust-grid">
+    <div class="trust-item"><span class="ic">🏆</span> In business in Shelton since 2006 — nearly 20 years</div>
+    <div class="trust-item"><span class="ic">✓</span> BBB file open since 2008</div>
+    <div class="trust-item"><span class="ic">👍</span> 84% recommend across 35 Facebook reviews</div>
+  </div>
+</div>
+
+<section class="cream" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What We Do</span>
+      <h2>Services at Town Nail &amp; Spa</h2>
+      <p>A full nail and spa menu — the treatments Town Nail &amp; Spa lists and advertises in-salon, from manicures to relaxation treatments.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Manicures &amp; Pedicures</span><span class="svc-tag">Popular</span></div>
+        <p class="svc-desc">Classic and spa-style hand and foot care — Town Nail &amp; Spa's core, everyday service.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Nail Extensions</span></div>
+        <p class="svc-desc">Full-set nail extensions built and shaped to your length and style of choice.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Russian Manicure</span></div>
+        <p class="svc-desc">Precision, machine-assisted cuticle work for an especially clean, long-lasting finish.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">UV Gel</span></div>
+        <p class="svc-desc">Chip-resistant gel polish, cured and finished for a durable, glossy result.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Spa Pedicure</span></div>
+        <p class="svc-desc">A relaxing soak-and-polish pedicure — one of Town Nail &amp; Spa's most-booked treatments.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Massage &amp; Reflexology</span></div>
+        <p class="svc-desc">Hand, foot, and pressure-point relaxation treatments offered alongside your nail service.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Facial</span></div>
+        <p class="svc-desc">In-salon facial treatments for a full self-care visit, not just a nail appointment.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-name">Ear Candling</span></div>
+        <p class="svc-desc">A traditional relaxation treatment, offered as one of the salon's specialty add-ons.</p>
+      </div>
+    </div>
+    <p class="svc-note">Services as advertised in-salon and listed on Town Nail &amp; Spa's Fresha page &middot; current pricing by phone: <a href="tel:+12039266090">(203) 926-6090</a></p>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <img src="public/images/storefront.jpg" alt="Town Nail & Spa storefront on Bridgeport Avenue, Shelton CT" />
+      <div class="cap">709 Bridgeport Avenue</div>
+      <div class="role">Shelton, Connecticut</div>
+    </div>
+    <div class="about-text">
+      <span class="eyebrow" style="margin-bottom:18px;">Our Story</span>
+      <h2 style="font-size:28px; margin-bottom:18px;">Nearly two decades on Bridgeport Avenue</h2>
+      <p>Town Nail &amp; Spa has operated in Shelton since being founded in <strong>August 2006</strong> — coming up on <strong>twenty years</strong> serving the same neighborhood on Bridgeport Avenue.</p>
+      <p>The salon's Better Business Bureau file has been open since <strong>2008</strong>, and its storefront still carries the full original service lineup — manicures, pedicures, nail extensions, gel, massage, reflexology, facials, and ear candling — all in one spacious location with a full row of pedicure chairs and manicure stations.</p>
+      <p>Today, Town Nail &amp; Spa is reachable by phone, in person, or through its Facebook page — with no independently branded website of its own yet.</p>
+      <div class="about-badges">
+        <span>Serving Shelton since 2006</span>
+        <span>BBB file since 2008</span>
+        <span>Full-service nail &amp; spa salon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cream" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What Shelton Says</span>
+      <h2>Real feedback, straight from Facebook</h2>
+      <p>Town Nail &amp; Spa doesn't have reviews collected on a site of its own yet — here's what's public today.</p>
+    </div>
+    <div class="proof-grid">
+      <div class="stat-card">
+        <div class="big">84%</div>
+        <div class="label">Recommend Town Nail &amp; Spa</div>
+        <div class="sub">Based on 35 reviews on Facebook &middot; 464 followers</div>
+      </div>
+      <div class="post-card">
+        <div class="post-head">
+          <div class="pmark"><img src="public/images/brand-mark.png" alt="Town Nail Spa" /></div>
+          <div>
+            <div class="pname">Town Nail Spa</div>
+            <div class="pdate">Facebook post</div>
+          </div>
+        </div>
+        <p class="body">"Open for Labor Day! We'll be here til 5pm. Call us @ 203.926.6090 for appointments!"</p>
+        <div class="post-reacts">👍 4 reactions on this post</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pitch-band">
+  <div class="wrap pitch-grid">
+    <div>
+      <span class="eyebrow">Where Solvendix Comes In</span>
+      <h2>Right now, Town Nail &amp; Spa has no website of its own.</h2>
+      <p>Search for Town Nail &amp; Spa today and you'll find a Facebook page, a bare booking-platform subdomain, and an unclaimed Fresha listing — no branded site, and no live pricing anywhere.</p>
+      <ul class="pitch-list">
+        <li><span class="x">✕</span> No independently branded website — only townnail.crd.co, a bare booking-platform subdomain</li>
+        <li><span class="x">✕</span> Its Fresha listing is unclaimed — Fresha's own page says it "is not currently affiliated" with the salon, and shows no live pricing</li>
+        <li><span class="x">✕</span> No way for a visitor to get an instant answer or book after hours — just a phone number and a Facebook page</li>
+      </ul>
+    </div>
+    <div class="pitch-card">
+      <h3>What a Solvendix build changes</h3>
+      <ul class="pitch-list" style="margin-top:0;">
+        <li><span class="check">✓</span> Your own site, on your own domain — built once, owned by you, not a rented subdomain</li>
+        <li><span class="check">✓</span> A real AI chatbot trained on your actual services and hours — answering and booking 24/7</li>
+        <li><span class="check">✓</span> Every visitor who reaches out after hours becomes a captured lead instead of a missed message</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cream" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Visit Us</span>
+      <h2>Hours &amp; Location</h2>
+    </div>
+    <div class="hl-grid">
+      <div class="info-card">
+        <h3>Business Hours</h3>
+        <div class="hours-row"><span class="day">Monday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Tuesday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Wednesday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Thursday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Friday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Saturday</span><span class="time">9:30 AM – 6:00 PM</span></div>
+        <div class="hours-row"><span class="day">Sunday</span><span class="time">10:00 AM – 5:00 PM</span></div>
+      </div>
+      <div class="info-card">
+        <h3>Find Us</h3>
+        <p class="addr-line">709 Bridgeport Ave<br>Shelton, CT 06484<br><a href="https://www.google.com/maps/search/?api=1&query=709+Bridgeport+Ave+Shelton+CT+06484" target="_blank" rel="noopener noreferrer">Get Directions →</a></p>
+        <p class="addr-line" style="margin-bottom:0;"><a href="tel:+12039266090">(203) 926-6090</a><br><a href="https://www.facebook.com/townnailspa/" target="_blank" rel="noopener noreferrer">facebook.com/townnailspa</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <span class="eyebrow">Ready When You Are</span>
+    <h2>Let's build Town Nail &amp; Spa a site that works as hard as your team does.</h2>
+    <p>Call directly, or try the chat assistant in the corner — it's a live demo of what would greet every visitor to your new site, day or night.</p>
+    <div class="cta-row">
+      <a href="tel:+12039266090" class="btn">Call (203) 926-6090</a>
+      <a href="https://www.facebook.com/townnailspa/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Message on Facebook</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-mark"><img src="public/images/brand-mark.png" alt="Town Nail & Spa logo" /></div>
+    <p class="biz-name">Town Nail &amp; Spa</p>
+    <p>709 Bridgeport Ave, Shelton, CT 06484</p>
+    <p>(203) 926-6090 &nbsp;·&nbsp; facebook.com/townnailspa</p>
+    <p style="margin-top:10px;">Demo redesign by <a href="https://solvendix.com" target="_blank" rel="noopener noreferrer" class="solv">Solvendix</a></p>
+  </div>
+</footer>
+
+<div id="chat-launcher" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</div>
+
+<div id="chat-panel">
+  <div class="chat-head">
+    <div class="dot"></div>
+    <span>Chat with us</span>
+    <button id="chat-close" onclick="toggleChat()" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="chat-body">
+    <div class="bubble bot">Hi! Ask me anything about Town Nail &amp; Spa's services or booking an appointment.</div>
+  </div>
+  <form id="chat-form" onsubmit="return handleSend(event)">
+    <input id="chat-input" type="text" placeholder="Type a message..." autocomplete="off" />
+    <button id="chat-send" type="submit" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+  const REPLY = "This chatbot will be your website's 24/7 assistant — answering customers' questions about your services and booking appointments instantly, so you never lose a customer to a missed message.<br><br>Businesses that add a 24/7 AI chatbot usually see more booked appointments and fewer lost leads — often a noticeable jump in monthly revenue, since it catches customers your site would otherwise lose. <a href=\"https://solvendix.com/how-chatbot-works\" target=\"_blank\" rel=\"noopener noreferrer\">See how it works →</a><br><br>Curious how this would work for your business? Book a free 15-minute discovery call with Solvendix and we'll help you implement everything you need: <a href=\"https://solvendix.com/book\" target=\"_blank\" rel=\"noopener noreferrer\">solvendix.com/book</a>";
+
+  function toggleChat() {
+    document.getElementById('chat-panel').classList.toggle('open');
+  }
+
+  function handleSend(e) {
+    e.preventDefault();
+    const input = document.getElementById('chat-input');
+    const body = document.getElementById('chat-body');
+    const text = input.value.trim();
+    if (!text) return false;
+
+    const userBubble = document.createElement('div');
+    userBubble.className = 'bubble user';
+    userBubble.textContent = text;
+    body.appendChild(userBubble);
+    input.value = '';
+    body.scrollTop = body.scrollHeight;
+
+    setTimeout(() => {
+      const botBubble = document.createElement('div');
+      botBubble.className = 'bubble bot';
+      botBubble.innerHTML = REPLY;
+      body.appendChild(botBubble);
+      body.scrollTop = body.scrollHeight;
+    }, 500);
+
+    return false;
+  }
+</script>
+
+</body>
+</html>
